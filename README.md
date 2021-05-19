@@ -130,7 +130,9 @@ Karena takut lag dalam pengerjaannya membantu Loba, Crypto juga membuat program 
 ### Penyelesaian 2c
 
 Fork pertama : Menerima input dari stdin ps aux kemudian dikirim ke pipe1
+
 Fork kedua : Menerima input dari pipe1 kemudian kemudian diconcatenated dengan sort -nrk 3,3 dan dituliskan pada pipe2
+
 Fork ketiga : Menerima input dari pipe2 kemudian diconcatenated dengan head -5 dan dikirim ke stdout
 
 ## Soal 3
