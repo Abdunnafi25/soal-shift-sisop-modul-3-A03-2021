@@ -18,11 +18,11 @@
 //get extension
 char *getext(char *filename) {
     if(filename[0] == '.') 
-		return "Hidden"; 
+	return "Hidden"; 
+	
     char *temp = strchr(filename, '.');
-
     if(!temp) 
-		return "Unknown";
+	return "Unknown";
 
     return temp + 1;
 }
@@ -45,8 +45,8 @@ void *move(void *argv){
 	strcpy(folder, getext(file));
 	
 	if (strcmp(folder, "Hidden") != 0 && strcmp(folder,"Unknown") != 0)
-	for(int i = 0; i < strlen(folder); i++)
-		folder[i] = tolower(folder[i]);
+		for(int i = 0; i < strlen(folder); i++)
+			folder[i] = tolower(folder[i]);
 	
 	
 	strcpy(goalpath,"");
