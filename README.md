@@ -338,7 +338,11 @@ Sama seperti soal3b, cuma ini mengkategorikan seluruh file yang ada di working d
 ![3_3_14](https://user-images.githubusercontent.com/81413071/119229853-f6a2cf00-bb43-11eb-8d55-590137c82774.PNG) <br />
 
 ### 3d. Semua file harus berada di dalam folder, jika terdapat file yang tidak memiliki ekstensi, file disimpan dalam folder “Unknown”. Jika file hidden, masuk folder “Hidden”.
-Sudah di atas.
+Sudah di atas. <br />
+
+![3_3_16](https://user-images.githubusercontent.com/81413071/119230949-b560ee00-bb48-11eb-9050-84ec0b47fa0a.PNG) <br />
+![3_3_15](https://user-images.githubusercontent.com/81413071/119230952-b6921b00-bb48-11eb-81d5-1652faff2d50.PNG) <br />
+
 ### 3e. Setiap 1 file yang dikategorikan dioperasikan oleh 1 thread agar bisa berjalan secara paralel sehingga proses kategori bisa berjalan lebih cepat.
 Sudah di atas.
 
