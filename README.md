@@ -353,4 +353,3 @@ Sudah di atas.
 4. Segmentation fault (core dumped)
 5. gatau lupa banyak
 
-Screenshot menyusul
