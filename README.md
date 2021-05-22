@@ -287,4 +287,27 @@ void traverse(char *argv){
 }
 
 ```
-to be continued
+Pada fungsi traverse, ini sama seperti traversing pada umumnya, cuma kita menambahkan pthread. Tidak hanya file saja, kita juga menggunakan kondisi saat traversing. Yaitu DT_REG dan DT_DIR. DT_REG jika itu merupakan regular file, dan DT_DIR jika itu merupakan direktori. Jika itu file, maka akan dibuatkan pathnya dan akan dipassing untuk create pthread untuk selanjutnya dipindahkan dengan fungsi `move` dan dijoinkan (seperti soal3a). Jika itu direktori, maka akan dibuatkan pathnya dan akan dipassing untuk merekursi kembali fungsi traverse untuk mentraverse isi direktori ini.
+
+### 3c. Selain menerima opsi-opsi di atas, program ini menerima opsi *.
+Opsi ini akan mengkategorikan seluruh file yang ada di working directory ketika menjalankan program C tersebut.
+
+```
+else if (strcmp(argv[1], "*") == 0) {
+		char cwd[100];
+		getcwd(cwd, sizeof(cwd));
+		traverse(cwd);	
+	}
+```
+Sama seperti soal3b, cuma ini mengkategorikan seluruh file yang ada di working directory. Maka menggunakan `getcwd` , dan langsung memanggil traverse.
+### 3d. Semua file harus berada di dalam folder, jika terdapat file yang tidak memiliki ekstensi, file disimpan dalam folder “Unknown”. Jika file hidden, masuk folder “Hidden”.
+Sudah di atas.
+### 3e. Setiap 1 file yang dikategorikan dioperasikan oleh 1 thread agar bisa berjalan secara paralel sehingga proses kategori bisa berjalan lebih cepat.
+Sudah di atas.
+
+### Kendala 
+1. Pusing
+2. ETS
+3. Masih bingung kondisi sukses gagal
+4. Segmentation fault (core dumped)
+5. gatau lupa banyak
