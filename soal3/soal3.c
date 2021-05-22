@@ -18,11 +18,11 @@
 //get extension
 char *getext(char *filename) {
     if(filename[0] == '.') 
-	return "Hidden"; 
-	
+		return "Hidden"; 
     char *temp = strchr(filename, '.');
+
     if(!temp) 
-	return "Unknown";
+		return "Unknown";
 
     return temp + 1;
 }
@@ -36,7 +36,7 @@ void makedir(char *dir) {
 int flag;
 void *move(void *argv){
 	char *path;
-	char cwd[100], folder[100], goalpath[100]; 
+	char cwd[500], folder[500], goalpath[500]; 
 	
 	path = (char *)argv;	
 	getcwd(cwd, sizeof(cwd));
@@ -45,8 +45,8 @@ void *move(void *argv){
 	strcpy(folder, getext(file));
 	
 	if (strcmp(folder, "Hidden") != 0 && strcmp(folder,"Unknown") != 0)
-		for(int i = 0; i < strlen(folder); i++)
-			folder[i] = tolower(folder[i]);
+	for(int i = 0; i < strlen(folder); i++)
+		folder[i] = tolower(folder[i]);
 	
 	
 	strcpy(goalpath,"");
@@ -87,7 +87,7 @@ void traverse(char *argv){
 			else if(dp->d_type == DT_DIR) {
 				struct dirent *ep;
    				DIR *dp1 = opendir(argv);
-				char path1[100];
+				char path1[500];
 				
 				strcpy(path1,"");
 				strcat(path1, argv);
@@ -105,7 +105,7 @@ void traverse(char *argv){
 int main(int argc, char* argv[])
 {
 	if (strcmp(argv[1], "-f") == 0){
-		pthread_t tid[1000];
+		pthread_t tid[argc-2];
 		for(int i=2; i<argc; i++){
 			pthread_create(&tid[i], NULL, move, (void *) argv[i]);
 			
@@ -131,7 +131,7 @@ int main(int argc, char* argv[])
 	}
 	
 	else if (strcmp(argv[1], "*") == 0) {
-		char cwd[100];
+		char cwd[500];
 		getcwd(cwd, sizeof(cwd));
 		traverse(cwd);	
 	}
