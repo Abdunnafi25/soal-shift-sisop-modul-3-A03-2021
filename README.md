@@ -311,3 +311,5 @@ Sudah di atas.
 3. Masih bingung kondisi sukses gagal
 4. Segmentation fault (core dumped)
 5. gatau lupa banyak
+
+Screenshot menyusul
