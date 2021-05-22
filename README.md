@@ -143,7 +143,7 @@ Fork ketiga : Menerima input dari pipe2 kemudian diconcatenated dengan head -5 d
 int main(int argc, char* argv[])
 {
 	if (strcmp(argv[1], "-f") == 0){
-		pthread_t tid[1000];
+		pthread_t tid[argc-2];
 		for(int i=2; i<argc; i++){
 			pthread_create(&tid[i], NULL, move, (void *) argv[i]);
 			
@@ -167,7 +167,7 @@ Lalu kita gunakan kondisi untuk mengecek argumen pertama apakah `-f` dengan `str
 int flag;
 void *move(void *argv){
 	char *path;
-	char cwd[100], folder[100], goalpath[100]; 
+	char cwd[500], folder[500], goalpath[500]; 
 	
 	path = (char *)argv;	
 	getcwd(cwd, sizeof(cwd));
@@ -176,8 +176,8 @@ void *move(void *argv){
 	strcpy(folder, getext(file));
 	
 	if (strcmp(folder, "Hidden") != 0 && strcmp(folder,"Unknown") != 0)
-		for(int i = 0; i < strlen(folder); i++)
-			folder[i] = tolower(folder[i]);
+	for(int i = 0; i < strlen(folder); i++)
+		folder[i] = tolower(folder[i]);
 	
 	
 	strcpy(goalpath,"");
@@ -271,7 +271,7 @@ void traverse(char *argv){
 			else if(dp->d_type == DT_DIR) {
 				struct dirent *ep;
    				DIR *dp1 = opendir(argv);
-				char path1[100];
+				char path1[500];
 				
 				strcpy(path1,"");
 				strcat(path1, argv);
@@ -294,7 +294,7 @@ Opsi ini akan mengkategorikan seluruh file yang ada di working directory ketika 
 
 ```
 else if (strcmp(argv[1], "*") == 0) {
-		char cwd[100];
+		char cwd[500];
 		getcwd(cwd, sizeof(cwd));
 		traverse(cwd);	
 	}
