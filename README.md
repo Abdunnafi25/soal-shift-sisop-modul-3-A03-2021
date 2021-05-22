@@ -1334,6 +1334,45 @@ Dikarenakan Keverk waspada dengan pertambahan dan penghapusan file di server, ma
 
 ## Screenshot pengerjaan
 - Menyambungkan server dan client terlebih dahulu
+<img width="960" alt="1_konek server" src="https://user-images.githubusercontent.com/36225278/119238208-5a8cbe00-bb6b-11eb-9e3d-ed47b197e9d3.png">
+
+- Melakukan register user
+<img width="960" alt="2_register" src="https://user-images.githubusercontent.com/36225278/119238292-e30b5e80-bb6b-11eb-83cb-c5ebe8ab306a.png">
+
+- Mencoba failed attempt login
+<img width="960" alt="3_login failed" src="https://user-images.githubusercontent.com/36225278/119238303-f3bbd480-bb6b-11eb-9c46-a6ecb54b55a4.png">
+
+- Mencoba login sukses
+<img width="960" alt="4_login sukses" src="https://user-images.githubusercontent.com/36225278/119238318-00402d00-bb6c-11eb-89f7-dbe308500bff.png">
+
+
+- 5 file yang telah disiapkan di dalam folder client
+<img width="960" alt="5_5 file client" src="https://user-images.githubusercontent.com/36225278/119238346-2fef3500-bb6c-11eb-97e5-eaaa3754eb35.png">
+
+- Mencoba command add
+<img width="960" alt="6_add command" src="https://user-images.githubusercontent.com/36225278/119238382-50b78a80-bb6c-11eb-9c34-ee92e6570fb4.png">
+
+- Melakukan command add ke semua file dari client ke server (karena minimal di soal 5 data)
+<img width="960" alt="7_semua add command" src="https://user-images.githubusercontent.com/36225278/119238392-5f05a680-bb6c-11eb-87a5-fbdf0b18d4f0.png">
+
+- Mencoba command see
+<img width="960" alt="8_see command" src="https://user-images.githubusercontent.com/36225278/119238409-72b10d00-bb6c-11eb-8808-e0fc078f4893.png">
+
+- Mencoba command delete
+<img width="960" alt="9_delete command" src="https://user-images.githubusercontent.com/36225278/119238438-8197bf80-bb6c-11eb-86bd-a6215355dafb.png">
+
+- Mencoba command find
+<img width="960" alt="9_find command" src="https://user-images.githubusercontent.com/36225278/119238454-92e0cc00-bb6c-11eb-9607-a0046cb06b69.png">
+
+- Mencoba command download
+<img width="960" alt="12_download sukses" src="https://user-images.githubusercontent.com/36225278/119238469-a2f8ab80-bb6c-11eb-98a0-b86afd7bdd2c.png">
+
+- File akun.txt
+
+
+- File running.log
+<img width="960" alt="15_runninglog" src="https://user-images.githubusercontent.com/36225278/119238488-b60b7b80-bb6c-11eb-8b33-18c182471592.png">
+
 
 
 3. 
