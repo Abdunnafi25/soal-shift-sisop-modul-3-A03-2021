@@ -136,3 +136,155 @@ Fork kedua : Menerima input dari pipe1 kemudian kemudian diconcatenated dengan s
 Fork ketiga : Menerima input dari pipe2 kemudian diconcatenated dengan head -5 dan dikirim ke stdout
 
 ## Soal 3
+
+### 3a. Program menerima opsi -f , jadi pengguna bisa menambahkan argumen file yang bisa dikategorikan sebanyak yang diinginkan oleh pengguna. 
+
+```
+int main(int argc, char* argv[])
+{
+	if (strcmp(argv[1], "-f") == 0){
+		pthread_t tid[1000];
+		for(int i=2; i<argc; i++){
+			pthread_create(&tid[i], NULL, move, (void *) argv[i]);
+			
+			if (!flag)
+				printf ( "File %d : Berhasil Dikategorikan\n",i-1);
+			
+			else
+				printf( "File %d : Sad, gagal :(\n", i-1 );
+		}
+
+		for(int j=2; j<argc; j++) 
+			pthread_join(tid[j],NULL);
+	}
+```
+
+Dimulai dengan fungsi main dengan parameter argc dan argv. argc sendiri merupakan argument count yang berisi jumlah argumen yang dipassing ke program tersebut dan argv merupakan array satu dimensi yang berisikan argumen argumen tersebut.
+
+Lalu kita gunakan kondisi untuk mengecek argumen pertama apakah `-f` dengan `strcmp`. Setelah itu mendeklarasikan thread dan menggunakan loop for untuk membuat thread dari masing masing argumen dan berjalan pada fungsi `move`.
+
+```
+int flag;
+void *move(void *argv){
+	char *path;
+	char cwd[100], folder[100], goalpath[100]; 
+	
+	path = (char *)argv;	
+	getcwd(cwd, sizeof(cwd));
+
+	char* file = basename(path);
+	strcpy(folder, getext(file));
+	
+	if (strcmp(folder, "Hidden") != 0 && strcmp(folder,"Unknown") != 0)
+		for(int i = 0; i < strlen(folder); i++)
+			folder[i] = tolower(folder[i]);
+	
+	
+	strcpy(goalpath,"");
+	strcat(goalpath, cwd);
+	strcat(goalpath, "/");
+	strcat(goalpath,folder);
+	makedir(goalpath);
+	
+	strcat(goalpath, "/");
+	strcat(goalpath, file);
+
+	flag = rename(path , goalpath); 
+}
+```
+Pada fungsi move, di sini telah dipassingkan argumen tadi yang berupa path to file. Lalu dengan `getcwd` kita bisa mengetahui working directory saat ini dan menggunakan `basename()` untuk mendapatkan nama filenya saja dari pathtofile. Kemudian untuk mencari extensi dari file tersebut maka dipanggilah fungsi `getext()` yang telah dibuat seperti ini.
+
+```
+char *getext(char *filename) {
+    if(filename[0] == '.') 
+	return "Hidden"; 
+	
+    char *temp = strchr(filename, '.');
+    if(!temp) 
+	return "Unknown";
+
+    return temp + 1;
+}
+```
+Pada fungsi getext ini, yang dilakukan pertama kali adalah mengecek indeks paling pertama, apakah itu berupa titik (.) atau tidak. Jika iya maka file itu merupakan hidden file dan akan mereturn "Hidden". Lalu jika tidak, akan dilakukan pengecekan lagi dengan `strchr` untuk mendapatkan ".(ekstensi)" dari file tersebut. Jika tidak ditemukan (.), maka akan mereturn Unknown dan jika iya maka mereturn string tersebut + 1 (maksudnya disini, dikarenakan temp berisi .ekstensi maka dengan adanya +1 akan tersisa ekstensi saja).
+
+### Kembali lagi ke move
+
+Setelah mendapatkan ekstensi file, maka akan di copy ke array folder yang sudah disiapkan dengan `strcpy`. Kemudian akan dilakukan pengulangan for untuk mengecilkan semua character dari ekstensi tersebut, kecuali `Unknown` dan `Hidden` karena soal meminta seperti itu. Kemudian mengassign goalpath dengan "workdir/folder" yang sudah kita dapatkan sebelumnya dan membuat folder dengan fungsi `makedir()`.
+```
+void makedir(char *dir) {
+	struct stat st;
+	if (stat(dir, &st) == -1) 
+		mkdir(dir, 0777);
+}
+```
+Pada fungsi makedir, akan dilakukan pengecekan properti direktori dengan stat() dari struct stat. Jika -1 berarti belum ada dan maka akan dibuat foldernya dengan mkdir(dir, 0777). Disini 0777 mengindikasikan permission access.
+
+### Kembali lagi ke move
+
+Lalu setelah itu, goalpath akan ditambahkan /file, dan me rename path seperti goalpath yang merupakan pemindahan path file tersebut(dikategorikan) serta mengassign value rename tersebut ke variable `flag`. Jika rename berhasil maka value yang dihasilkan adalah 0.
+
+### Kembali lagi ke main
+
+Terdapat kondisi if else untuk indikasi keberhasilan pengkategorian. Maka akan dicek nilai flag yang tadi, jika flag=0 maka berhasil, selain itu gagal. Terakhir, seperti biasa ada pthread join untuk menunggu thread.
+
+### 3b. Program juga dapat menerima opsi -d untuk melakukan pengkategorian pada suatu directory. Namun pada opsi -d ini, user hanya bisa memasukkan input 1 directory saja, tidak seperti file yang bebas menginput file sebanyak mungkin. 
+
+Melanjutkan if dari soal 3a, maka untuk 3b adalah seperti berikut
+```
+else if(strcmp(argv[1], "-d") == 0){
+
+		if(errno != 2) {
+			traverse(argv[2]);
+			printf("Direktori sukses disimpan!\n");
+			}
+		else
+			printf("Yah, gagal disimpan :(\n");
+	}
+```
+Sama seperti 3a, program melakukan pengecekan argumen `-d`. Lalu jika iya, maka akan terdapat if else lagi. Jika errno!=2 maka akan memanggil fungsi traverse() dan print sukses setelah itu, jika tidak maka print gagal.
+
+```
+void traverse(char *argv){
+	int k=2; 
+	struct dirent *dp;
+   	DIR *dir = opendir(argv);
+	
+	pthread_t thread[1000];
+	
+	while ((dp = readdir(dir)) != NULL) {
+		char path[300];
+		
+		if (strcmp(dp->d_name, ".") != 0 && strcmp(dp->d_name, "..") != 0) {
+			if(dp->d_type == DT_REG) {
+				if (strcmp(dp->d_name, "soal3") == 0 || strcmp(dp->d_name, "soal3.c") == 0)
+					continue;
+				strcpy(path,"");
+				strcat(path, argv);
+				strcat(path, "/");
+				strcat(path, dp->d_name);
+
+				pthread_create(&thread[k], NULL, move, (void *) path);
+				pthread_join(thread[k], NULL);
+				k++;
+			}
+			else if(dp->d_type == DT_DIR) {
+				struct dirent *ep;
+   				DIR *dp1 = opendir(argv);
+				char path1[100];
+				
+				strcpy(path1,"");
+				strcat(path1, argv);
+				strcat(path1, "/");
+				strcat(path1, dp->d_name);
+				traverse(path1);
+   				closedir(dp1);
+			}
+		}
+	}
+
+	closedir(dir);
+}
+
+```
+to be continued
