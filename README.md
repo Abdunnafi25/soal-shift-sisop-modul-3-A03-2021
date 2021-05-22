@@ -234,7 +234,7 @@ Melanjutkan if dari soal 3a, maka untuk 3b adalah seperti berikut
 ```
 else if(strcmp(argv[1], "-d") == 0){
 
-		if(errno != 2) {
+		if(check(argv)) {
 			traverse(argv[2]);
 			printf("Direktori sukses disimpan!\n");
 			}
@@ -242,7 +242,21 @@ else if(strcmp(argv[1], "-d") == 0){
 			printf("Yah, gagal disimpan :(\n");
 	}
 ```
-Sama seperti 3a, program melakukan pengecekan argumen `-d`. Lalu jika iya, maka akan terdapat if else lagi. Jika errno!=2 maka akan memanggil fungsi traverse() dan print sukses setelah itu, jika tidak maka print gagal.
+Sama seperti 3a, program melakukan pengecekan argumen `-d`. Lalu jika iya, maka akan terdapat if else lagi. Jika check(argv)==1 maka akan memanggil fungsi traverse() dan print sukses setelah itu, jika tidak maka print gagal. Check() merupakan fungsi untuk mengecek apakah direktori ada atau tidak atau tidak bisa dibuka.
+```
+int check(char *argv){
+DIR* dir = opendir(argv);
+if (dir) {
+    return 1;
+    closedir(dir);
+} 
+else if (ENOENT == errno) 
+    return 0;
+else 
+    return 0;
+}
+
+```
 
 ```
 void traverse(char *argv){
