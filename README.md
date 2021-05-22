@@ -1368,14 +1368,12 @@ Dikarenakan Keverk waspada dengan pertambahan dan penghapusan file di server, ma
 <img width="960" alt="12_download sukses" src="https://user-images.githubusercontent.com/36225278/119238469-a2f8ab80-bb6c-11eb-98a0-b86afd7bdd2c.png">
 
 - File akun.txt
-
+<img width="960" alt="akun" src="https://user-images.githubusercontent.com/36225278/119238547-261a0180-bb6d-11eb-9694-1f63784ea6a6.png">
 
 - File running.log
 <img width="960" alt="15_runninglog" src="https://user-images.githubusercontent.com/36225278/119238488-b60b7b80-bb6c-11eb-8b33-18c182471592.png">
 
 
-
-3. 
 ## Soal 2
 
 
@@ -1503,6 +1501,9 @@ Fork pertama : Menerima input dari stdin ps aux kemudian dikirim ke pipe1
 Fork kedua : Menerima input dari pipe1 kemudian kemudian diconcatenated dengan sort -nrk 3,3 dan dituliskan pada pipe2
 
 Fork ketiga : Menerima input dari pipe2 kemudian diconcatenated dengan head -5 dan dikirim ke stdout
+
+##  Hasil Output Program
+![16538](https://user-images.githubusercontent.com/36225278/119238562-447ffd00-bb6d-11eb-8e4b-aa8585161efc.jpg)
 
 ## Soal 3
 
