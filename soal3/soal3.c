@@ -102,6 +102,19 @@ void traverse(char *argv){
 	closedir(dir);
 }
 
+int check(char *argv){
+DIR* dir = opendir(argv);
+if (dir) {
+    return 1;
+    closedir(dir);
+} 
+else if (ENOENT == errno) 
+    return 0;
+else 
+    return 0;
+}
+
+
 int main(int argc, char* argv[])
 {
 	if (strcmp(argv[1], "-f") == 0){
@@ -122,7 +135,7 @@ int main(int argc, char* argv[])
 	
 	else if(strcmp(argv[1], "-d") == 0){
 
-		if(errno != 2) {
+		if(check(argv[2])) {
 			traverse(argv[2]);
 			printf("Direktori sukses disimpan!\n");
 			}
